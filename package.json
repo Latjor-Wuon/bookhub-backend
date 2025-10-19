@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "build": "tsc --project ./tsconfig.json && npm run postbuild",
-    "postbuild": "ls -la dist/ && echo 'Build completed successfully'",
+    "build": "rm -rf dist && tsc --project ./tsconfig.json && ls -la dist/ && echo 'Build completed successfully'",
     "build:prod": "npm run build && npm run seed",
     "seed": "ts-node src/seed.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -2,7 +2,7 @@ services:
   - type: web
     name: bookhub-api
     env: node
-    buildCommand: chmod +x build.sh && ./build.sh
+    buildCommand: npm ci && npm run build
     startCommand: node dist/index.js
     healthCheckPath: /healthz
     branch: main
