@@ -18,7 +18,8 @@ app.use(cors({
         'https://bookhub-frontend-git-main-latjors-projects.vercel.app',
         'https://bookhub-frontend-six.vercel.app',
         'https://bookhub.vercel.app',
-        'https://book-hub.vercel.app'
+        'https://book-hub.vercel.app',
+        process.env.FRONTEND_URL || 'https://bookhub.vercel.app'
       ] 
     : ['http://localhost:3000', 'http://localhost:5173'],
   credentials: true,
@@ -31,6 +32,15 @@ app.use(express.urlencoded({ extended: true }));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// API health check endpoint for Render
+app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     timestamp: new Date().toISOString(),

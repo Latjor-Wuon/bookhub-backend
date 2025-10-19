@@ -10,4 +10,6 @@ services:
         value: production
       - key: PORT
         value: 10000
+      - key: FRONTEND_URL
+        value: https://bookhub.vercel.app
     healthCheckPath: /api/health
