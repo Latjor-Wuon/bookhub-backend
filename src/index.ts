@@ -1,7 +1,7 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import connectDB from './db';
 import authRoutes from './routes/auth';
 import bookRoutes from './routes/books';
 
@@ -29,13 +29,30 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Health check endpoint
+// Health check endpoints
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development'
   });
+});
+
+// Health check endpoint for Render
+app.get('/healthz', async (req, res) => {
+  try {
+    // Check if MongoDB is connected
+    const mongoose = require('mongoose');
+    const isConnected = mongoose.connection.readyState === 1;
+    
+    if (isConnected) {
+      res.json({ status: 'ok' });
+    } else {
+      res.status(503).json({ status: 'error', message: 'Database not connected' });
+    }
+  } catch (error) {
+    res.status(503).json({ status: 'error', message: 'Health check failed' });
+  }
 });
 
 // Routes
@@ -65,30 +82,21 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   });
 });
 
-// Database connection
-const connectDB = async () => {
-  try {
-    if (!process.env.MONGODB_URI) {
-      throw new Error('MONGODB_URI environment variable is not set');
-    }
-    
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log('✅ Connected to MongoDB');
-  } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
-    process.exit(1);
-  }
-};
-
 // Start server
 const startServer = async () => {
-  await connectDB();
-  
-        app.listen(PORT, () => {
-          console.log(`Server running on port ${PORT}`);
-          console.log(`Book Hub API is ready!`);
-          console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-        });
+  try {
+    // Connect to database using cached connection
+    await connectDB();
+    
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+      console.log(`Book Hub API is ready!`);
+      console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
 };
 
 startServer().catch(console.error);
