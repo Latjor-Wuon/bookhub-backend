@@ -1,8 +1,4 @@
-import mongoose from 'mongoose';
-
-declare global {
-  var mongoose: any;
-}
+const mongoose = require('mongoose');
 
 let cached = global.mongoose;
 
@@ -20,7 +16,7 @@ async function connectDB() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(process.env.MONGODB_URI!, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(process.env.MONGODB_URI, opts).then((mongoose) => {
       console.log('✅ Connected to MongoDB');
       return mongoose;
     }).catch((err) => {
@@ -39,4 +35,4 @@ async function connectDB() {
   return cached.conn;
 }
 
-export default connectDB;
+module.exports = connectDB;

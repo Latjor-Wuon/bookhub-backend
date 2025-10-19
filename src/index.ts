@@ -1,7 +1,8 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import connectDB from './db';
+const connectDB = require('./db');
 import authRoutes from './routes/auth';
 import bookRoutes from './routes/books';
 
