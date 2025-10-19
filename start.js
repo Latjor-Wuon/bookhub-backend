@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 console.log('🚀 Starting BookHub Backend...');
+console.log('📁 Current directory:', process.cwd());
 
 // Check if dist/index.js exists
 if (!fs.existsSync('dist/index.js')) {
@@ -16,7 +17,16 @@ if (!fs.existsSync('dist/index.js')) {
       execSync('rm -rf dist', { stdio: 'inherit' });
     }
     
-    execSync('npx tsc --project ./tsconfig.json', { stdio: 'inherit' });
+    // Check if tsconfig.json exists
+    if (fs.existsSync('tsconfig.json')) {
+      console.log('✅ Found tsconfig.json');
+      execSync('npx tsc --project ./tsconfig.json', { stdio: 'inherit' });
+    } else {
+      console.log('❌ tsconfig.json not found, listing directory contents:');
+      const files = fs.readdirSync('.');
+      console.log('📁 Available files:', files);
+      process.exit(1);
+    }
     
     if (fs.existsSync('dist/index.js')) {
       console.log('✅ Build completed successfully');
