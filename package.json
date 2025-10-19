@@ -9,7 +9,8 @@
     "build": "rm -rf dist && tsc --project ./tsconfig.json && ls -la dist/ && echo 'Build completed successfully'",
     "build:prod": "npm run build && npm run seed",
     "seed": "ts-node src/seed.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "render-postbuild": "node build.js"
   },
   "keywords": [],
   "author": "",
