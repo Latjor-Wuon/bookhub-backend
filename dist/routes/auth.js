@@ -35,6 +35,16 @@ const loginValidation = [
         .withMessage('Password is required')
 ];
 // Routes
+router.get('/', (req, res) => {
+    res.json({
+        message: 'Auth API is working',
+        endpoints: {
+            register: 'POST /api/auth/register',
+            login: 'POST /api/auth/login',
+            profile: 'GET /api/auth/profile/:id'
+        }
+    });
+});
 router.post('/register', registerValidation, authController_1.register);
 router.post('/login', loginValidation, authController_1.login);
 router.get('/profile/:id', auth_1.authenticateToken, authController_1.getProfile);

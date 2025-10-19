@@ -34,6 +34,16 @@ const loginValidation = [
 ];
 
 // Routes
+router.get('/', (req, res) => {
+  res.json({
+    message: 'Auth API is working',
+    endpoints: {
+      register: 'POST /api/auth/register',
+      login: 'POST /api/auth/login',
+      profile: 'GET /api/auth/profile/:id'
+    }
+  });
+});
 router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
 router.get('/profile/:id', authenticateToken, getProfile);
