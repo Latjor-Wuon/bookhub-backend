@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-// Declare global mongoose for caching
 declare global {
   var mongoose: any;
 }

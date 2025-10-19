@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: bookhub-api
-    env: node
-    buildCommand: npm ci && npm run build
-    startCommand: node dist/index.js
-    healthCheckPath: /healthz
-    branch: main
-    rootDir: .
