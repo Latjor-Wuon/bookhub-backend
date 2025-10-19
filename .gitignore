@@ -6,9 +6,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Production builds
-dist/
-build/
+# Production builds (commented out for Render deployment)
+# dist/
+# build/
 
 # Environment variables
 .env
