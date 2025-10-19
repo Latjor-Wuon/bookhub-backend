@@ -21,7 +21,7 @@ app.use(cors({
         'https://bookhub-frontend-cy5atrtmw-latjors-projects.vercel.app',
         'https://bookhub.vercel.app',
         'https://book-hub.vercel.app',
-        process.env.FRONTEND_URL || 'https://bookhub.vercel.app'
+        process.env.FRONTEND_URL || 'https://bookhub-frontend-flax.vercel.app/'
       ] 
     : ['http://localhost:3000', 'http://localhost:5173'],
   credentials: true,
