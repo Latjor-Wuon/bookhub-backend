@@ -17,6 +17,8 @@ app.use(cors({
     ? [
         'https://bookhub-frontend-git-main-latjors-projects.vercel.app',
         'https://bookhub-frontend-six.vercel.app',
+        'https://bookhub-frontend-flax.vercel.app',
+        'https://bookhub-frontend-cy5atrtmw-latjors-projects.vercel.app',
         'https://bookhub.vercel.app',
         'https://book-hub.vercel.app',
         process.env.FRONTEND_URL || 'https://bookhub.vercel.app'
